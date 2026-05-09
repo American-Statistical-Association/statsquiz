@@ -1,0 +1,508 @@
+---
+pagetitle: "What Kind of Statistician Could You Be?"
+format:
+  html:
+    self-contained: false
+    page-layout: full
+    toc: false
+    theme: none
+---
+
+```{=html}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 300;
+    background: #f7f4ef;
+    color: #1a1a1a;
+    min-height: 100vh;
+  }
+
+  .quiz-wrapper {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .quiz-logo {
+    display: block;
+    margin: 0 auto 1.75rem;
+    height: 110px;
+    width: auto;
+  }
+
+  .quiz-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1.5px solid #d4cfc8;
+  }
+
+  .quiz-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8c6e3f;
+    margin-bottom: 1rem;
+  }
+
+  .quiz-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+  }
+
+  .quiz-desc {
+    font-size: 1.05rem;
+    color: #555;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  .question-block {
+    margin-bottom: 2.5rem;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e5e0d8;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.45s ease forwards;
+  }
+
+  .question-block:nth-child(1) { animation-delay: 0.05s; }
+  .question-block:nth-child(2) { animation-delay: 0.1s; }
+  .question-block:nth-child(3) { animation-delay: 0.15s; }
+  .question-block:nth-child(4) { animation-delay: 0.2s; }
+  .question-block:nth-child(5) { animation-delay: 0.25s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-number {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8c6e3f;
+    margin-bottom: 0.5rem;
+  }
+
+  .question-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: #1a1a1a;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #e0dbd2;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+    transition: border-color 0.15s, background 0.15s;
+    line-height: 1.3;
+  }
+
+  .option-label:hover {
+    border-color: #8c6e3f;
+    background: #fdf9f4;
+  }
+
+  .option-label input[type="radio"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #ccc;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+  }
+
+  .option-label input[type="radio"]:checked {
+    border-color: #8c6e3f;
+    background: #8c6e3f;
+    box-shadow: inset 0 0 0 3px #fff;
+  }
+
+  .option-label:has(input:checked) {
+    border-color: #8c6e3f;
+    background: #fdf6ed;
+    color: #1a1a1a;
+  }
+
+  .submit-area {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+
+  .submit-btn {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: #1a1a1a;
+    color: #f7f4ef;
+    border: none;
+    padding: 0.9rem 2.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .submit-btn:hover { background: #333; }
+  .submit-btn:active { transform: scale(0.98); }
+
+  .error-msg {
+    color: #b04020;
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+    display: none;
+  }
+
+  /* Result card */
+  #result-section {
+    display: none;
+    margin-top: 2.5rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  #result-section.visible {
+    opacity: 1;
+  }
+
+  .result-card {
+    background: #fff;
+    border: 1px solid #e5e0d8;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .result-banner {
+    padding: 2.25rem 2.5rem 2rem;
+    border-bottom: 1px solid #e5e0d8;
+  }
+
+  .result-eyebrow {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  .result-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a1a1a;
+    margin-bottom: 0;
+  }
+
+  .result-body {
+    padding: 2rem 2.5rem;
+  }
+
+  .result-description {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #444;
+    margin-bottom: 1.5rem;
+  }
+
+  .result-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .result-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    background: #f0ebe2;
+    color: #5a4a2f;
+  }
+
+  .retake-btn {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    color: #8c6e3f;
+    border: 1.5px solid #8c6e3f;
+    padding: 0.7rem 2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .retake-btn:hover {
+    background: #8c6e3f;
+    color: #fff;
+  }
+
+  .accent-bar {
+    height: 5px;
+    width: 100%;
+  }
+
+  @media (max-width: 520px) {
+    .options-grid { grid-template-columns: 1fr; }
+    .result-banner, .result-body { padding: 1.5rem; }
+  }
+</style>
+
+<div class="quiz-wrapper">
+
+  <div class="quiz-header">
+    <img class="quiz-logo" src="STATtraklogo_notag150.jpg" alt="STATtr@k logo">
+    <p class="quiz-eyebrow">Career Explorer</p>
+    <h1 class="quiz-title">What Kind of Statistician Could You Be?</h1>
+    <p class="quiz-desc">From medicine and sports to journalism and finance, <strong>statistics</strong> touches every <a href="https://stattrak.amstat.org/making-sense/profiles/" target="_blank">field</a>. Answer five questions to discover which career path might suit you.</p>
+  </div>
+
+  <div id="quiz-form">
+
+    <!-- Q1 -->
+    <div class="question-block">
+      <p class="question-number">Question 1 of 5</p>
+      <p class="question-text">What's your favorite subject?</p>
+      <div class="options-grid">
+        <label class="option-label"><input type="radio" name="q1" value="bio"> Science</label>
+        <label class="option-label"><input type="radio" name="q1" value="ds"> Computer Science</label>
+        <label class="option-label"><input type="radio" name="q1" value="sports"> Physical Education</label>
+        <label class="option-label"><input type="radio" name="q1" value="jour"> English</label>
+        <label class="option-label"><input type="radio" name="q1" value="jour2"> Current Events</label>
+        <label class="option-label"><input type="radio" name="q1" value="act"> Economics</label>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-block">
+      <p class="question-number">Question 2 of 5</p>
+      <p class="question-text">When faced with a technical problem to solve, do you...</p>
+      <div class="options-grid">
+        <label class="option-label"><input type="radio" name="q2" value="ds"> Look for ways to make an efficient solution</label>
+        <label class="option-label"><input type="radio" name="q2" value="bio"> Consider the evidence and contributing factors</label>
+        <label class="option-label"><input type="radio" name="q2" value="sports"> Find a solution that improves performance</label>
+        <label class="option-label"><input type="radio" name="q2" value="bio2"> Test a hypothesis to find an answer</label>
+        <label class="option-label"><input type="radio" name="q2" value="act"> Weigh any risks or potential failures</label>
+        <label class="option-label"><input type="radio" name="q2" value="survey"> Sample a group of people for their input</label>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-block">
+      <p class="question-number">Question 3 of 5</p>
+      <p class="question-text">Pick a hobby!</p>
+      <div class="options-grid">
+        <label class="option-label"><input type="radio" name="q3" value="jour"> Photography</label>
+        <label class="option-label"><input type="radio" name="q3" value="sports"> Running</label>
+        <label class="option-label"><input type="radio" name="q3" value="ds"> Video Games</label>
+        <label class="option-label"><input type="radio" name="q3" value="bio"> Gardening</label>
+        <label class="option-label"><input type="radio" name="q3" value="jour2"> Reading</label>
+        <label class="option-label"><input type="radio" name="q3" value="act"> Strategy-based board games</label>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-block">
+      <p class="question-number">Question 4 of 5</p>
+      <p class="question-text">What's your ideal work environment?</p>
+      <div class="options-grid">
+        <label class="option-label"><input type="radio" name="q4" value="bio"> A lab</label>
+        <label class="option-label"><input type="radio" name="q4" value="jour"> A bustling newsroom</label>
+        <label class="option-label"><input type="radio" name="q4" value="sports"> A state-of-the-art sports stadium</label>
+        <label class="option-label"><input type="radio" name="q4" value="ds"> An open office with as many monitors as I can have</label>
+        <label class="option-label"><input type="radio" name="q4" value="act"> An office with whiteboards for charting</label>
+        <label class="option-label"><input type="radio" name="q4" value="survey"> A creative environment with access to lots of media</label>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-block">
+      <p class="question-number">Question 5 of 5</p>
+      <p class="question-text">Complete this phrase: "Statistics is..."</p>
+      <div class="options-grid">
+        <label class="option-label"><input type="radio" name="q5" value="sports"> The method I use to pick my NCAA bracket</label>
+        <label class="option-label"><input type="radio" name="q5" value="ds"> A way to make sense of all the data we generate</label>
+        <label class="option-label"><input type="radio" name="q5" value="jour"> Important proof points for reporting</label>
+        <label class="option-label"><input type="radio" name="q5" value="bio"> An important tool in health-related research</label>
+        <label class="option-label"><input type="radio" name="q5" value="survey"> How the ads I want to see reach me</label>
+        <label class="option-label"><input type="radio" name="q5" value="act"> A tool in determining risk or reward</label>
+      </div>
+    </div>
+
+    <div class="submit-area">
+      <button class="submit-btn" onclick="submitQuiz()">See My Result</button>
+      <p class="error-msg" id="error-msg">Please answer all five questions before submitting.</p>
+    </div>
+
+  </div>
+
+  <!-- Result -->
+  <div id="result-section">
+    <div class="result-card">
+      <div class="accent-bar" id="result-accent"></div>
+      <div class="result-banner">
+        <p class="result-eyebrow" id="result-eyebrow" style="color:#8c6e3f;">Your result</p>
+        <h2 class="result-title" id="result-title"></h2>
+      </div>
+      <div class="result-body">
+        <p class="result-description" id="result-description"></p>
+        <div class="result-tags" id="result-tags"></div>
+        <button class="retake-btn" onclick="retakeQuiz()">Retake the quiz</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const profiles = {
+  bio: {
+    title: "The Biostatistician",
+    accent: "#2d7a5a",
+    description: "You're drawn to questions that matter — like whether a new treatment actually works, or what's really driving a health trend in a community. Biostatisticians are the backbone of medical research, designing clinical trials, analyzing data from public health studies, and making sure that the findings doctors and patients rely on are sound. Your work might never make the front page, but it shapes the treatments, vaccines, and health policies that affect millions of lives. If you've ever wondered how we know that a new drug is effective, or how epidemiologists tracked the spread of a disease — that's biostatistics at work.",
+    tags: ["Clinical trials", "Public health", "Epidemiology"]
+  },
+  ds: {
+    title: "The Data Scientist",
+    accent: "#1d5fa5",
+    description: "You thrive at the intersection of statistics and technology, and you're comfortable letting the data lead you somewhere unexpected. Data scientists build the models and systems that help organizations make sense of the staggering amounts of information generated every day — from the recommendations you see on streaming platforms to the fraud detection that protects your bank account. You're equally at home writing code and interpreting results, and you understand that the best algorithm in the world is only useful if someone can act on what it tells them.",
+    tags: ["Machine learning", "Predictive modeling", "Big data"]
+  },
+  sports: {
+    title: "The Sports Analyst",
+    accent: "#b07520",
+    description: "You see the game within the game. Sports analysts use statistics to measure performance, predict outcomes, and give teams a competitive edge — and the field has exploded since the Moneyball era showed what data-driven decisions could do. Whether you're building models to evaluate player efficiency, analyzing in-game strategy, or helping a front office decide where to invest in talent, you're bringing rigor to an arena that fans and executives are increasingly hungry to understand. The best sports analysts combine a love of competition with a healthy skepticism about conventional wisdom.",
+    tags: ["Performance metrics", "Sabermetrics", "Strategy"]
+  },
+  jour: {
+    title: "The Data Journalist",
+    accent: "#b04020",
+    description: "Numbers tell stories — and you're the one who translates them. Data journalists sit at the crossroads of statistics and communication, turning complex datasets into narratives that the public can understand and act on. You might analyze voting patterns before an election, dig into government spending data to expose inequities, or visualize the spread of a crisis in a way that makes it real for readers. In a world flooded with information, you're the one who can tell signal from noise — and explain why it matters.",
+    tags: ["Data visualization", "Investigative reporting", "Storytelling"]
+  },
+  act: {
+    title: "The Actuary",
+    accent: "#5340b0",
+    description: "You think in probabilities, and you're comfortable sitting with uncertainty — because your job is to quantify it. Actuaries use statistical models to assess and price risk across industries like insurance, finance, and pension management. When an insurance company sets a premium, when a pension fund projects its long-term obligations, or when a business needs to understand its exposure to a natural disaster — an actuary built the model behind that decision. It's one of the most consistently highly-ranked careers for job satisfaction, compensation, and work-life balance, and it rewards people who are rigorous, strategic, and patient.",
+    tags: ["Risk modeling", "Finance", "Insurance"]
+  },
+  survey: {
+    title: "The Survey & Market Research Statistician",
+    accent: "#3a6d20",
+    description: "You understand that data doesn't just live in databases — it lives in people's opinions, behaviors, and experiences. Survey and market research statisticians design the studies that help organizations understand their audiences: what consumers want, how policies land with the public, what voters are thinking, or how employees feel about their workplace. Getting this right is harder than it sounds — question wording, sampling strategy, and response bias can all skew results in ways that lead decision-makers astray. You're the one who makes sure the data actually reflects reality.",
+    tags: ["Survey design", "Sampling", "Consumer insights"]
+  }
+};
+
+// Scoring weights: each answer votes for one or more profiles
+const weights = {
+  q1: { bio: {bio:3}, ds: {ds:3}, sports: {sports:3}, jour: {jour:2,survey:1}, jour2: {jour:2,survey:1}, act: {act:3} },
+  q2: { ds: {ds:3}, bio: {bio:2,survey:1}, sports: {sports:3}, bio2: {bio:3}, act: {act:3}, survey: {survey:3} },
+  q3: { jour: {jour:2,survey:1}, sports: {sports:3}, ds: {ds:3}, bio: {bio:2}, jour2: {jour:2,survey:1}, act: {act:3} },
+  q4: { bio: {bio:3}, jour: {jour:3}, sports: {sports:3}, ds: {ds:3}, act: {act:3}, survey: {survey:3} },
+  q5: { sports: {sports:3}, ds: {ds:3}, jour: {jour:3}, bio: {bio:3}, survey: {survey:3}, act: {act:3} }
+};
+
+function submitQuiz() {
+  const questions = ['q1','q2','q3','q4','q5'];
+  const answers = {};
+  let allAnswered = true;
+
+  for (const q of questions) {
+    const selected = document.querySelector(`input[name="${q}"]:checked`);
+    if (!selected) { allAnswered = false; break; }
+    answers[q] = selected.value;
+  }
+
+  if (!allAnswered) {
+    document.getElementById('error-msg').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('error-msg').style.display = 'none';
+
+  // Tally scores
+  const scores = { bio:0, ds:0, sports:0, jour:0, act:0, survey:0 };
+  for (const q of questions) {
+    const val = answers[q];
+    const pts = weights[q][val] || {};
+    for (const [profile, pts_val] of Object.entries(pts)) {
+      scores[profile] += pts_val;
+    }
+  }
+
+  // Find winner
+  const winner = Object.entries(scores).sort((a,b) => b[1]-a[1])[0][0];
+  const profile = profiles[winner];
+
+  // Populate result
+  document.getElementById('result-title').textContent = profile.title;
+  document.getElementById('result-description').textContent = profile.description;
+  document.getElementById('result-accent').style.background = profile.accent;
+
+  const tagsEl = document.getElementById('result-tags');
+  tagsEl.innerHTML = '';
+  profile.tags.forEach(tag => {
+    const span = document.createElement('span');
+    span.className = 'result-tag';
+    span.textContent = tag;
+    tagsEl.appendChild(span);
+  });
+
+  // Show result, hide form
+  const resultSection = document.getElementById('result-section');
+  document.getElementById('quiz-form').style.display = 'none';
+  resultSection.style.display = 'block';
+  setTimeout(() => resultSection.classList.add('visible'), 30);
+  resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function retakeQuiz() {
+  // Reset all radios
+  document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+  const resultSection = document.getElementById('result-section');
+  resultSection.classList.remove('visible');
+  resultSection.style.display = 'none';
+  document.getElementById('quiz-form').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+```

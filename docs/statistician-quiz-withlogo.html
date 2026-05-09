@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>What Kind of Statistician Could You Be?</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+
+
+<script src="statistician-quiz-withlogo_files/libs/clipboard/clipboard.min.js"></script>
+<script src="statistician-quiz-withlogo_files/libs/quarto-html/tabby.min.js"></script>
+<script src="statistician-quiz-withlogo_files/libs/quarto-html/popper.min.js"></script>
+<script src="statistician-quiz-withlogo_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="statistician-quiz-withlogo_files/libs/quarto-html/anchor.min.js"></script>
+<link href="statistician-quiz-withlogo_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="statistician-quiz-withlogo_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="statistician-quiz-withlogo_files/libs/quarto-html/quarto-html-640605f58ae58ee79329c070719e555b.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="statistician-quiz-withlogo_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+
+
+</head>
+
+<body>
+
+
+
+
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 300;
+    background: #f7f4ef;
+    color: #1a1a1a;
+    min-height: 100vh;
+  }
+
+  .quiz-wrapper {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .quiz-logo {
+    display: block;
+    margin: 0 auto 1.75rem;
+    height: 110px;
+    width: auto;
+  }
+
+  .quiz-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1.5px solid #d4cfc8;
+  }
+
+  .quiz-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8c6e3f;
+    margin-bottom: 1rem;
+  }
+
+  .quiz-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+  }
+
+  .quiz-desc {
+    font-size: 1.05rem;
+    color: #555;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  .question-block {
+    margin-bottom: 2.5rem;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e5e0d8;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.45s ease forwards;
+  }
+
+  .question-block:nth-child(1) { animation-delay: 0.05s; }
+  .question-block:nth-child(2) { animation-delay: 0.1s; }
+  .question-block:nth-child(3) { animation-delay: 0.15s; }
+  .question-block:nth-child(4) { animation-delay: 0.2s; }
+  .question-block:nth-child(5) { animation-delay: 0.25s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-number {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8c6e3f;
+    margin-bottom: 0.5rem;
+  }
+
+  .question-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: #1a1a1a;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #e0dbd2;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+    transition: border-color 0.15s, background 0.15s;
+    line-height: 1.3;
+  }
+
+  .option-label:hover {
+    border-color: #8c6e3f;
+    background: #fdf9f4;
+  }
+
+  .option-label input[type="radio"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #ccc;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+  }
+
+  .option-label input[type="radio"]:checked {
+    border-color: #8c6e3f;
+    background: #8c6e3f;
+    box-shadow: inset 0 0 0 3px #fff;
+  }
+
+  .option-label:has(input:checked) {
+    border-color: #8c6e3f;
+    background: #fdf6ed;
+    color: #1a1a1a;
+  }
+
+  .submit-area {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+
+  .submit-btn {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: #1a1a1a;
+    color: #f7f4ef;
+    border: none;
+    padding: 0.9rem 2.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .submit-btn:hover { background: #333; }
+  .submit-btn:active { transform: scale(0.98); }
+
+  .error-msg {
+    color: #b04020;
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+    display: none;
+  }
+
+  /* Result card */
+  #result-section {
+    display: none;
+    margin-top: 2.5rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  #result-section.visible {
+    opacity: 1;
+  }
+
+  .result-card {
+    background: #fff;
+    border: 1px solid #e5e0d8;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .result-banner {
+    padding: 2.25rem 2.5rem 2rem;
+    border-bottom: 1px solid #e5e0d8;
+  }
+
+  .result-eyebrow {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  .result-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a1a1a;
+    margin-bottom: 0;
+  }
+
+  .result-body {
+    padding: 2rem 2.5rem;
+  }
+
+  .result-description {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #444;
+    margin-bottom: 1.5rem;
+  }
+
+  .result-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .result-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    background: #f0ebe2;
+    color: #5a4a2f;
+  }
+
+  .retake-btn {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    color: #8c6e3f;
+    border: 1.5px solid #8c6e3f;
+    padding: 0.7rem 2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .retake-btn:hover {
+    background: #8c6e3f;
+    color: #fff;
+  }
+
+  .accent-bar {
+    height: 5px;
+    width: 100%;
+  }
+
+  @media (max-width: 520px) {
+    .options-grid { grid-template-columns: 1fr; }
+    .result-banner, .result-body { padding: 1.5rem; }
+  }
+</style>
+
+<div class="quiz-wrapper">
+
+  <div class="quiz-header">
+    <img class="quiz-logo" src="STATtraklogo_notag150.jpg" alt="STATtr@k logo">
+    <p class="quiz-eyebrow">Career Explorer</p>
+    <h1 class="quiz-title">What Kind of Statistician Could You Be?</h1>
+    <p class="quiz-desc">From medicine and sports to journalism and finance, <strong>statistics</strong> touches every <a href="https://stattrak.amstat.org/making-sense/profiles/" target="_blank">field</a>. Answer five questions to discover which career path might suit you.</p>
+  </div>
+
+  <div id="quiz-form">
+
+    <!-- Q1 -->
+    <div class="question-block">
+      <p class="question-number">Question 1 of 5</p>
+      <p class="question-text">What's your favorite subject?</p>
+      <div class="options-grid">
+        <label class="option-label"><input type="radio" name="q1" value="bio"> Science</label>
+        <label class="option-label"><input type="radio" name="q1" value="ds"> Computer Science</label>
+        <label class="option-label"><input type="radio" name="q1" value="sports"> Physical Education</label>
+        <label class="option-label"><input type="radio" name="q1" value="jour"> English</label>
+        <label class="option-label"><input type="radio" name="q1" value="jour2"> Current Events</label>
+        <label class="option-label"><input type="radio" name="q1" value="act"> Economics</label>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-block">
+      <p class="question-number">Question 2 of 5</p>
+      <p class="question-text">When faced with a technical problem to solve, do you...</p>
+      <div class="options-grid">
+        <label class="option-label"><input type="radio" name="q2" value="ds"> Look for ways to make an efficient solution</label>
+        <label class="option-label"><input type="radio" name="q2" value="bio"> Consider the evidence and contributing factors</label>
+        <label class="option-label"><input type="radio" name="q2" value="sports"> Find a solution that improves performance</label>
+        <label class="option-label"><input type="radio" name="q2" value="bio2"> Test a hypothesis to find an answer</label>
+        <label class="option-label"><input type="radio" name="q2" value="act"> Weigh any risks or potential failures</label>
+        <label class="option-label"><input type="radio" name="q2" value="survey"> Sample a group of people for their input</label>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-block">
+      <p class="question-number">Question 3 of 5</p>
+      <p class="question-text">Pick a hobby!</p>
+      <div class="options-grid">
+        <label class="option-label"><input type="radio" name="q3" value="jour"> Photography</label>
+        <label class="option-label"><input type="radio" name="q3" value="sports"> Running</label>
+        <label class="option-label"><input type="radio" name="q3" value="ds"> Video Games</label>
+        <label class="option-label"><input type="radio" name="q3" value="bio"> Gardening</label>
+        <label class="option-label"><input type="radio" name="q3" value="jour2"> Reading</label>
+        <label class="option-label"><input type="radio" name="q3" value="act"> Strategy-based board games</label>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-block">
+      <p class="question-number">Question 4 of 5</p>
+      <p class="question-text">What's your ideal work environment?</p>
+      <div class="options-grid">
+        <label class="option-label"><input type="radio" name="q4" value="bio"> A lab</label>
+        <label class="option-label"><input type="radio" name="q4" value="jour"> A bustling newsroom</label>
+        <label class="option-label"><input type="radio" name="q4" value="sports"> A state-of-the-art sports stadium</label>
+        <label class="option-label"><input type="radio" name="q4" value="ds"> An open office with as many monitors as I can have</label>
+        <label class="option-label"><input type="radio" name="q4" value="act"> An office with whiteboards for charting</label>
+        <label class="option-label"><input type="radio" name="q4" value="survey"> A creative environment with access to lots of media</label>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-block">
+      <p class="question-number">Question 5 of 5</p>
+      <p class="question-text">Complete this phrase: "Statistics is..."</p>
+      <div class="options-grid">
+        <label class="option-label"><input type="radio" name="q5" value="sports"> The method I use to pick my NCAA bracket</label>
+        <label class="option-label"><input type="radio" name="q5" value="ds"> A way to make sense of all the data we generate</label>
+        <label class="option-label"><input type="radio" name="q5" value="jour"> Important proof points for reporting</label>
+        <label class="option-label"><input type="radio" name="q5" value="bio"> An important tool in health-related research</label>
+        <label class="option-label"><input type="radio" name="q5" value="survey"> How the ads I want to see reach me</label>
+        <label class="option-label"><input type="radio" name="q5" value="act"> A tool in determining risk or reward</label>
+      </div>
+    </div>
+
+    <div class="submit-area">
+      <button class="submit-btn" onclick="submitQuiz()">See My Result</button>
+      <p class="error-msg" id="error-msg">Please answer all five questions before submitting.</p>
+    </div>
+
+  </div>
+
+  <!-- Result -->
+  <div id="result-section">
+    <div class="result-card">
+      <div class="accent-bar" id="result-accent"></div>
+      <div class="result-banner">
+        <p class="result-eyebrow" id="result-eyebrow" style="color:#8c6e3f;">Your result</p>
+        <h2 class="result-title anchored" id="result-title"></h2>
+      </div>
+      <div class="result-body">
+        <p class="result-description" id="result-description"></p>
+        <div class="result-tags" id="result-tags"></div>
+        <button class="retake-btn" onclick="retakeQuiz()">Retake the quiz</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const profiles = {
+  bio: {
+    title: "The Biostatistician",
+    accent: "#2d7a5a",
+    description: "You're drawn to questions that matter — like whether a new treatment actually works, or what's really driving a health trend in a community. Biostatisticians are the backbone of medical research, designing clinical trials, analyzing data from public health studies, and making sure that the findings doctors and patients rely on are sound. Your work might never make the front page, but it shapes the treatments, vaccines, and health policies that affect millions of lives. If you've ever wondered how we know that a new drug is effective, or how epidemiologists tracked the spread of a disease — that's biostatistics at work.",
+    tags: ["Clinical trials", "Public health", "Epidemiology"]
+  },
+  ds: {
+    title: "The Data Scientist",
+    accent: "#1d5fa5",
+    description: "You thrive at the intersection of statistics and technology, and you're comfortable letting the data lead you somewhere unexpected. Data scientists build the models and systems that help organizations make sense of the staggering amounts of information generated every day — from the recommendations you see on streaming platforms to the fraud detection that protects your bank account. You're equally at home writing code and interpreting results, and you understand that the best algorithm in the world is only useful if someone can act on what it tells them.",
+    tags: ["Machine learning", "Predictive modeling", "Big data"]
+  },
+  sports: {
+    title: "The Sports Analyst",
+    accent: "#b07520",
+    description: "You see the game within the game. Sports analysts use statistics to measure performance, predict outcomes, and give teams a competitive edge — and the field has exploded since the Moneyball era showed what data-driven decisions could do. Whether you're building models to evaluate player efficiency, analyzing in-game strategy, or helping a front office decide where to invest in talent, you're bringing rigor to an arena that fans and executives are increasingly hungry to understand. The best sports analysts combine a love of competition with a healthy skepticism about conventional wisdom.",
+    tags: ["Performance metrics", "Sabermetrics", "Strategy"]
+  },
+  jour: {
+    title: "The Data Journalist",
+    accent: "#b04020",
+    description: "Numbers tell stories — and you're the one who translates them. Data journalists sit at the crossroads of statistics and communication, turning complex datasets into narratives that the public can understand and act on. You might analyze voting patterns before an election, dig into government spending data to expose inequities, or visualize the spread of a crisis in a way that makes it real for readers. In a world flooded with information, you're the one who can tell signal from noise — and explain why it matters.",
+    tags: ["Data visualization", "Investigative reporting", "Storytelling"]
+  },
+  act: {
+    title: "The Actuary",
+    accent: "#5340b0",
+    description: "You think in probabilities, and you're comfortable sitting with uncertainty — because your job is to quantify it. Actuaries use statistical models to assess and price risk across industries like insurance, finance, and pension management. When an insurance company sets a premium, when a pension fund projects its long-term obligations, or when a business needs to understand its exposure to a natural disaster — an actuary built the model behind that decision. It's one of the most consistently highly-ranked careers for job satisfaction, compensation, and work-life balance, and it rewards people who are rigorous, strategic, and patient.",
+    tags: ["Risk modeling", "Finance", "Insurance"]
+  },
+  survey: {
+    title: "The Survey & Market Research Statistician",
+    accent: "#3a6d20",
+    description: "You understand that data doesn't just live in databases — it lives in people's opinions, behaviors, and experiences. Survey and market research statisticians design the studies that help organizations understand their audiences: what consumers want, how policies land with the public, what voters are thinking, or how employees feel about their workplace. Getting this right is harder than it sounds — question wording, sampling strategy, and response bias can all skew results in ways that lead decision-makers astray. You're the one who makes sure the data actually reflects reality.",
+    tags: ["Survey design", "Sampling", "Consumer insights"]
+  }
+};
+
+// Scoring weights: each answer votes for one or more profiles
+const weights = {
+  q1: { bio: {bio:3}, ds: {ds:3}, sports: {sports:3}, jour: {jour:2,survey:1}, jour2: {jour:2,survey:1}, act: {act:3} },
+  q2: { ds: {ds:3}, bio: {bio:2,survey:1}, sports: {sports:3}, bio2: {bio:3}, act: {act:3}, survey: {survey:3} },
+  q3: { jour: {jour:2,survey:1}, sports: {sports:3}, ds: {ds:3}, bio: {bio:2}, jour2: {jour:2,survey:1}, act: {act:3} },
+  q4: { bio: {bio:3}, jour: {jour:3}, sports: {sports:3}, ds: {ds:3}, act: {act:3}, survey: {survey:3} },
+  q5: { sports: {sports:3}, ds: {ds:3}, jour: {jour:3}, bio: {bio:3}, survey: {survey:3}, act: {act:3} }
+};
+
+function submitQuiz() {
+  const questions = ['q1','q2','q3','q4','q5'];
+  const answers = {};
+  let allAnswered = true;
+
+  for (const q of questions) {
+    const selected = document.querySelector(`input[name="${q}"]:checked`);
+    if (!selected) { allAnswered = false; break; }
+    answers[q] = selected.value;
+  }
+
+  if (!allAnswered) {
+    document.getElementById('error-msg').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('error-msg').style.display = 'none';
+
+  // Tally scores
+  const scores = { bio:0, ds:0, sports:0, jour:0, act:0, survey:0 };
+  for (const q of questions) {
+    const val = answers[q];
+    const pts = weights[q][val] || {};
+    for (const [profile, pts_val] of Object.entries(pts)) {
+      scores[profile] += pts_val;
+    }
+  }
+
+  // Find winner
+  const winner = Object.entries(scores).sort((a,b) => b[1]-a[1])[0][0];
+  const profile = profiles[winner];
+
+  // Populate result
+  document.getElementById('result-title').textContent = profile.title;
+  document.getElementById('result-description').textContent = profile.description;
+  document.getElementById('result-accent').style.background = profile.accent;
+
+  const tagsEl = document.getElementById('result-tags');
+  tagsEl.innerHTML = '';
+  profile.tags.forEach(tag => {
+    const span = document.createElement('span');
+    span.className = 'result-tag';
+    span.textContent = tag;
+    tagsEl.appendChild(span);
+  });
+
+  // Show result, hide form
+  const resultSection = document.getElementById('result-section');
+  document.getElementById('quiz-form').style.display = 'none';
+  resultSection.style.display = 'block';
+  setTimeout(() => resultSection.classList.add('visible'), 30);
+  resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function retakeQuiz() {
+  // Reset all radios
+  document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+  const resultSection = document.getElementById('result-section');
+  resultSection.classList.remove('visible');
+  resultSection.style.display = 'none';
+  document.getElementById('quiz-form').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+</body></html>
